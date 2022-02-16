@@ -93,24 +93,6 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
       "filename": "sfc/lekki/p3dlgkz2guhrwouwukdp"
     }
   ];
-  // Future<void> uploadProfilePic({required String path}) async {
-  //   List<MultipartFile> files = [];
-
-  //   files.add(await MultipartFile.fromFile(path));
-
-  //   var formData = FormData.fromMap({"file": files});
-
-  //   var response = await Dio().post(
-  //     'https://sfc-lekki-property.herokuapp.com/api/v1/lekki/upload',
-  //     data: formData,
-  //     options: Options(
-  //       headers: {"content-type": "multipart/form-data"},
-  //     ),
-  //   );
-
-  //   //print('uploadResponse: $response');
-  //   images.add(response.data['data']);
-  // }
 
   @override
   void initState() {

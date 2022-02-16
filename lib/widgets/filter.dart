@@ -17,7 +17,6 @@ class _FilterState extends State<Filter> {
   double _bedroom = 0;
   double _kitchen = 0;
   double _toilet = 0;
-  // List filterList = [];
   @override
   void initState() {
     constants.propertyList.clear();

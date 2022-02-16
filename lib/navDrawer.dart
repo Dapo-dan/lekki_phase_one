@@ -59,29 +59,6 @@ class NavDrawer extends StatelessWidget {
                   builder: (BuildContext context) => const AddPropertyPage()));
             },
           ),
-          const Divider(
-            color: Colors.grey,
-          ),
-          ListTile(
-            title:
-                const Text("Update Property", style: TextStyle(fontSize: 20)),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => UpdatePropertyPage(
-                        address: '',
-                        bathroom: '',
-                        bedroom: '',
-                        description: '',
-                        kitchen: '',
-                        owner: '',
-                        sittingRoom: '',
-                        toilet: '',
-                        type: '',
-                        validFrom: '',
-                        validTo: '',
-                      )));
-            },
-          )
         ],
       ),
     );

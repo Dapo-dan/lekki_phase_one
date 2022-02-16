@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lekki_phase_one/navDrawer.dart';
 
 // ignore: must_be_immutable
-class UpdatePropertyPage extends StatelessWidget {
+class UpdatePropertyPage extends StatefulWidget {
   UpdatePropertyPage(
       {Key? key,
       required this.address,
@@ -29,16 +30,17 @@ class UpdatePropertyPage extends StatelessWidget {
   String validFrom;
   String validTo;
 
-  TextEditingController propertyAddress = TextEditingController();
-  TextEditingController propertyType = TextEditingController();
+  @override
+  State<UpdatePropertyPage> createState() => _UpdatePropertyPageState();
+}
+
+class _UpdatePropertyPageState extends State<UpdatePropertyPage> {
   TextEditingController bedrooms = TextEditingController();
   TextEditingController bathrooms = TextEditingController();
   TextEditingController kitchens = TextEditingController();
   TextEditingController sittingRooms = TextEditingController();
   TextEditingController toilets = TextEditingController();
-  TextEditingController validfrom = TextEditingController();
   TextEditingController validto = TextEditingController();
-  TextEditingController propertyOwner = TextEditingController();
   TextEditingController propertyDescription = TextEditingController();
 
   @override
@@ -74,28 +76,148 @@ class UpdatePropertyPage extends StatelessWidget {
                 ),
                 Container(
                   width: double.maxFinite,
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        'Property address: ${widget.address}',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Property type: ${widget.type}',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       TextFormField(
-                        controller: propertyAddress,
+                        controller: bedrooms,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           focusColor: Colors.white,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-
                           focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                                 color: Colors.blue, width: 1.0),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           fillColor: Colors.grey, //create label
-                          labelText: 'Property address: $address',
+                          labelText: 'Number of bedroom: ',
+                          //label style
+                          labelStyle: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        controller: sittingRooms,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          focusColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          fillColor: Colors.grey, //create label
+                          labelText: 'Number of sitting rooms: ',
+                          //label style
+                          labelStyle: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        controller: kitchens,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          focusColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          fillColor: Colors.grey, //create label
+                          labelText: 'Number of kitchens:',
+                          //label style
+                          labelStyle: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        controller: bathrooms,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          focusColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          fillColor: Colors.grey, //create label
+                          labelText: 'Number of bathrooms: ',
+                          //label style
+                          labelStyle: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        controller: toilets,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          focusColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          fillColor: Colors.grey, //create label
+                          labelText: 'Number of toilets: ',
                           //label style
                           labelStyle: const TextStyle(
                             color: Colors.grey,
@@ -108,81 +230,93 @@ class UpdatePropertyPage extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        'Property type: $type',
+                        'Property owner: ${widget.owner}',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
+                      TextFormField(
+                        controller: propertyDescription,
+                        decoration: InputDecoration(
+                          focusColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          fillColor: Colors.grey, //create label
+                          labelText: 'Description: ',
+                          //label style
+                          labelStyle: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Text(
-                        'Number of bedroom: $bedroom',
+                        'Valid from: ${widget.validFrom}',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      Text(
-                        'Number of sitting rooms: $sittingRoom',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Number of kitchens: $kitchen',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Number of bathrooms: $bathroom',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Number of toilets: $toilet',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Property owner: $owner',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Description: $description',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Valid from: $validFrom',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Valid to: $validTo',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                      TextFormField(
+                        controller: validto,
+                        readOnly: true,
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(
+                                  2000), //DateTime.now() - not to allow to choose before today.
+                              lastDate: DateTime(2101));
+                          if (pickedDate != null) {
+                            print(
+                                pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                            String formattedDate =
+                                DateFormat('yyyy-MM-dd').format(pickedDate);
+                            print(
+                                formattedDate); //formatted date output using intl package =>  2021-03-16
+                            //you can implement different kind of Date Format here according to your requirement
+
+                            setState(() {
+                              validto.text =
+                                  formattedDate; //set output date to TextField value.
+                            });
+                          } else {
+                            print("Date is not selected");
+                          }
+                        },
+                        decoration: InputDecoration(
+                          focusColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          fillColor: Colors.grey,
+                          //create label
+                          labelText: 'Valid to',
+                          //lable style
+                          labelStyle: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -190,12 +324,42 @@ class UpdatePropertyPage extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
+                OutlinedButton(
+                    child: const Text(
+                      "Update",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                      minimumSize: const Size(430, 50),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      primary: Colors.indigo,
+                      onSurface: Colors.grey,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UpdatePropertyPage(
+                                    address: widget.address,
+                                    bedroom: widget.bedroom,
+                                    bathroom: widget.bathroom,
+                                    kitchen: widget.kitchen,
+                                    description: widget.description,
+                                    owner: widget.owner,
+                                    sittingRoom: widget.sittingRoom,
+                                    toilet: widget.toilet,
+                                    type: widget.type,
+                                    validFrom: widget.validFrom,
+                                    validTo: widget.validTo,
+                                  )));
+                    }),
               ],
             ),
           ],
         ),
       ),
-      drawer: const NavDrawer(),
     );
   }
 }

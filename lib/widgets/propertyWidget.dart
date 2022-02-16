@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lekki_phase_one/screens/show_property_page.dart';
+import 'package:lekki_phase_one/screens/update_property_page.dart';
 
 class PropertyView extends StatefulWidget {
   const PropertyView({
@@ -111,6 +112,79 @@ class _PropertyViewState extends State<PropertyView> {
                           fontSize: 15,
                           color: Colors.grey,
                         )),
+                    Row(
+                      children: [
+                        OutlinedButton(
+                            child: const Text(
+                              "Show",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              // padding:
+                              //     const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                              // minimumSize: const Size(430, 50),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              primary: Colors.indigo,
+                              onSurface: Colors.grey,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ShowPropertyPage(
+                                            address: widget.address,
+                                            bedroom: widget.bedroom,
+                                            bathroom: widget.bathroom,
+                                            kitchen: widget.kitchen,
+                                            description: widget.description,
+                                            owner: widget.owner,
+                                            sittingRoom: widget.sittingRoom,
+                                            toilet: widget.toilet,
+                                            type: widget.type,
+                                            validFrom: widget.validFrom,
+                                            validTo: widget.validTo,
+                                          )));
+                            }),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        OutlinedButton(
+                            child: const Text(
+                              "Update",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              // padding:
+                              //     const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                              // minimumSize: const Size(430, 50),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              primary: Colors.indigo,
+                              onSurface: Colors.grey,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UpdatePropertyPage(
+                                            address: widget.address,
+                                            bedroom: widget.bedroom,
+                                            bathroom: widget.bathroom,
+                                            kitchen: widget.kitchen,
+                                            description: widget.description,
+                                            owner: widget.owner,
+                                            sittingRoom: widget.sittingRoom,
+                                            toilet: widget.toilet,
+                                            type: widget.type,
+                                            validFrom: widget.validFrom,
+                                            validTo: widget.validTo,
+                                          )));
+                            }),
+                      ],
+                    )
                   ],
                 ),
               ),

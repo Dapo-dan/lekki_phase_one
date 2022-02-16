@@ -16,6 +16,8 @@ class PropertyView extends StatefulWidget {
     required this.description,
     required this.validFrom,
     required this.validTo,
+    required this.id,
+    required this.image,
   }) : super(key: key);
   final String address;
   final String type;
@@ -28,6 +30,8 @@ class PropertyView extends StatefulWidget {
   final String description;
   final String validFrom;
   final String validTo;
+  final String id;
+  final List image;
 
   @override
   State<PropertyView> createState() => _PropertyViewState();
@@ -53,6 +57,7 @@ class _PropertyViewState extends State<PropertyView> {
                     type: widget.type,
                     validFrom: widget.validFrom,
                     validTo: widget.validTo,
+                    images: widget.image,
                   )),
         );
       },
@@ -68,8 +73,10 @@ class _PropertyViewState extends State<PropertyView> {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  image: const DecorationImage(
-                    image: AssetImage("images/property1.jpg"),
+                  image: DecorationImage(
+                    image: NetworkImage(widget.image.isEmpty
+                        ? "https://www.stylemotivation.com/wp-content/uploads/2021/07/02C.jpg"
+                        : widget.image.first["path"]),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -121,9 +128,6 @@ class _PropertyViewState extends State<PropertyView> {
                                   TextStyle(fontSize: 20, color: Colors.white),
                             ),
                             style: ElevatedButton.styleFrom(
-                              // padding:
-                              //     const EdgeInsets.fromLTRB(40, 10, 40, 10),
-                              // minimumSize: const Size(430, 50),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               primary: Colors.indigo,
@@ -145,6 +149,7 @@ class _PropertyViewState extends State<PropertyView> {
                                             type: widget.type,
                                             validFrom: widget.validFrom,
                                             validTo: widget.validTo,
+                                            images: [],
                                           )));
                             }),
                         const SizedBox(
@@ -157,9 +162,6 @@ class _PropertyViewState extends State<PropertyView> {
                                   TextStyle(fontSize: 20, color: Colors.white),
                             ),
                             style: ElevatedButton.styleFrom(
-                              // padding:
-                              //     const EdgeInsets.fromLTRB(40, 10, 40, 10),
-                              // minimumSize: const Size(430, 50),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               primary: Colors.indigo,
@@ -181,7 +183,10 @@ class _PropertyViewState extends State<PropertyView> {
                                             type: widget.type,
                                             validFrom: widget.validFrom,
                                             validTo: widget.validTo,
+                                            id: widget.id,
+                                            images: [],
                                           )));
+                              print(widget.id);
                             }),
                       ],
                     )

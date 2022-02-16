@@ -32,7 +32,6 @@ class _ListPropertyPageState extends State<ListPropertyPage> {
     getProprty().then((value) {
       setState(() {
         constants.propertyList = value;
-        // print(constants.propertyList[0].toJson());
       });
     });
     // ignore: todo
@@ -53,35 +52,38 @@ class _ListPropertyPageState extends State<ListPropertyPage> {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              margin: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () async {
-                      await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const Filter();
-                        },
-                      );
-                    },
-                    child: const Text(
-                      'Filter by properties',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ],
+            const SizedBox(
+              height: 10,
+            ),
+            OutlinedButton(
+              child: const Text(
+                'Filter by properties',
+                style: TextStyle(fontSize: 20, color: Colors.indigo),
               ),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                minimumSize: const Size(430, 50),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                primary: Colors.white,
+                onSurface: Colors.grey,
+              ),
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const Filter();
+                  },
+                );
+              },
+            ),
+            const SizedBox(
+              height: 5,
             ),
             Expanded(
                 child: ListView.builder(
               shrinkWrap: true,
               itemCount: constants.propertyList.length,
-              //itemExtent: 10,
               itemBuilder: (BuildContext context, int index) {
                 return PropertyView(
                   address: constants.propertyList[index].address,
@@ -96,6 +98,8 @@ class _ListPropertyPageState extends State<ListPropertyPage> {
                   toilet: constants.propertyList[index].toilet.toString(),
                   validFrom: constants.propertyList[index].validFrom,
                   validTo: constants.propertyList[index].validTo,
+                  id: constants.propertyList[index].id,
+                  image: constants.propertyList[index].images,
                 );
               },
             ))

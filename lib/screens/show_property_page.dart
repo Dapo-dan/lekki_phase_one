@@ -13,6 +13,7 @@ class ShowPropertyPage extends StatelessWidget {
       required this.bathroom,
       required this.description,
       required this.validFrom,
+      required this.images,
       required this.validTo})
       : super(key: key);
   final String address;
@@ -25,6 +26,7 @@ class ShowPropertyPage extends StatelessWidget {
   final String bathroom;
   final String description;
   final String validFrom;
+  final List images;
   final String validTo;
 
   @override
@@ -47,8 +49,10 @@ class ShowPropertyPage extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    image: const DecorationImage(
-                      image: AssetImage("images/property3.jpg"),
+                    image: DecorationImage(
+                      image: NetworkImage(images.isEmpty
+                          ? "https://www.stylemotivation.com/wp-content/uploads/2021/07/02C.jpg"
+                          : images.first["path"]),
                       fit: BoxFit.cover,
                     ),
                   ),

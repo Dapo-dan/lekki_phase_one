@@ -50,7 +50,6 @@ class _FilterState extends State<Filter> {
     for (var item in response.data['data']) {
       constants.filterList.add(PropertyModel.fromJson(item));
     }
-    // print(constants.filterList.length);
     return constants.filterList;
   }
 
@@ -245,9 +244,9 @@ class _FilterState extends State<Filter> {
                                   fontWeight: FontWeight.w400,
                                 ),
 
-                                //create lable
+                                //create label
                                 labelText: 'Property Owner',
-                                //lable style
+                                //label style
                                 labelStyle: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -314,6 +313,7 @@ class _FilterState extends State<Filter> {
                   toilet: constants.filterList[index].toilet.toString(),
                   validFrom: constants.filterList[index].validFrom,
                   validTo: constants.filterList[index].validTo,
+                  images: constants.filterList[index].images,
                 );
               },
             ),

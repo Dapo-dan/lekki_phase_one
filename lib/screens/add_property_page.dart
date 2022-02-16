@@ -70,7 +70,6 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
   TextEditingController owner = TextEditingController();
   TextEditingController propertyDescription = TextEditingController();
 
-  //For uploading the image and getting the path from the endpoint before the property upload
   List images = [
     {
       "fieldname": "file",
@@ -138,9 +137,9 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-                    //create lable
+                    //create label
                     labelText: 'Property address',
-                    //lable style
+                    //label style
                     labelStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -171,9 +170,9 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-                    //create lable
+                    //create label
                     labelText: 'Property type (house,flat etc.)',
-                    //lable style
+                    //label style
                     labelStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -208,9 +207,9 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-                    //create lable
+                    //create label
                     labelText: 'Number of bedrooms',
-                    //lable style
+                    //label style
                     labelStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -245,9 +244,9 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-                    //create lable
+                    //create label
                     labelText: 'Number of sitting rooms',
-                    //lable style
+                    //label style
                     labelStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -282,9 +281,9 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-                    //create lable
+                    //create label
                     labelText: 'Number of kitchen',
-                    //lable style
+                    //label style
                     labelStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -319,9 +318,9 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-                    //create lable
+                    //create label
                     labelText: 'Number of bathrooms',
-                    //lable style
+                    //label style
                     labelStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -356,9 +355,9 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-                    //create lable
+                    //create label
                     labelText: 'Number of toilets',
-                    //lable style
+                    //label style
                     labelStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -389,9 +388,9 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-                    //create lable
+                    //create label
                     labelText: 'Property owner',
-                    //lable style
+                    //label style
                     labelStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -422,9 +421,9 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-                    //create lable
+                    //create label
                     labelText: 'Description',
-                    //lable style
+                    //label style
                     labelStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -441,7 +440,8 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
                         context: context,
-                        initialDate: DateTime.now(),
+                        initialDate: DateTime.now().add(const Duration(
+                            days: 1)), //Allows you choose the next day
                         firstDate: DateTime(
                             2000), //DateTime.now() - not to allow to choose before today.
                         lastDate: DateTime(2101));
@@ -481,9 +481,9 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-                    //create lable
+                    //create label
                     labelText: 'Valid from',
-                    //lable style
+                    //label style
                     labelStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -500,7 +500,8 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
                         context: context,
-                        initialDate: DateTime.now(),
+                        initialDate:
+                            DateTime.now().add(const Duration(days: 1)),
                         firstDate: DateTime(
                             2000), //DateTime.now() - not to allow to choose before today.
                         lastDate: DateTime(2101));
@@ -540,9 +541,9 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-                    //create lable
+                    //create label
                     labelText: 'Valid to',
-                    //lable style
+                    //label style
                     labelStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -550,7 +551,6 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                     ),
                   ),
                 ),
-                // const ImageWidget(),
                 const SizedBox(
                   height: 20,
                 ),

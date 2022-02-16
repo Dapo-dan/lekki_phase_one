@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lekki_phase_one/screens/add_property_page.dart';
 import 'package:lekki_phase_one/screens/list_property_page.dart';
-import 'package:lekki_phase_one/screens/update_property_page.dart';
 
 class NavDrawer extends StatelessWidget {
   const NavDrawer({Key? key}) : super(key: key);

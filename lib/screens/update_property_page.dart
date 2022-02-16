@@ -1,6 +1,9 @@
+import 'dart:math';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:lekki_phase_one/navDrawer.dart';
+import 'package:lekki_phase_one/screens/list_property_page.dart';
 
 // ignore: must_be_immutable
 class UpdatePropertyPage extends StatefulWidget {
@@ -16,7 +19,9 @@ class UpdatePropertyPage extends StatefulWidget {
       required this.bathroom,
       required this.description,
       required this.validFrom,
-      required this.validTo})
+      required this.validTo,
+      required this.images,
+      required this.id})
       : super(key: key);
   String address;
   String type;
@@ -29,12 +34,50 @@ class UpdatePropertyPage extends StatefulWidget {
   String description;
   String validFrom;
   String validTo;
+  List images;
+  String id;
 
   @override
   State<UpdatePropertyPage> createState() => _UpdatePropertyPageState();
 }
 
 class _UpdatePropertyPageState extends State<UpdatePropertyPage> {
+  Dio dio = Dio();
+
+  Future<Response> updateProperty({
+    required int bEdrooms,
+    required int tOilet,
+    required int bAthrooms,
+    required String vAlidTo,
+    required int sIttingroom,
+    required int kItchens,
+    required String dEscription,
+  }) async {
+    String pathUrl =
+        'https://sfc-lekki-property.herokuapp.com/api/v1/lekki/property/${widget.id}';
+
+    var data = {
+      "bedroom": bEdrooms,
+      "sittingRoom": sIttingroom,
+      "kitchen": kItchens,
+      "bathroom": bAthrooms,
+      "toilet": tOilet,
+      "description": dEscription,
+      "validTo": vAlidTo,
+    };
+    print(pathUrl);
+
+    Response response = await dio.patch(
+      pathUrl,
+      data: data,
+      options: Options(
+        contentType: "application/json",
+      ),
+    );
+
+    return response;
+  }
+
   TextEditingController bedrooms = TextEditingController();
   TextEditingController bathrooms = TextEditingController();
   TextEditingController kitchens = TextEditingController();
@@ -63,8 +106,10 @@ class _UpdatePropertyPageState extends State<UpdatePropertyPage> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    image: const DecorationImage(
-                      image: AssetImage("images/property3.jpg"),
+                    image: DecorationImage(
+                      image: NetworkImage(widget.images.isEmpty
+                          ? "https://www.stylemotivation.com/wp-content/uploads/2021/07/02C.jpg"
+                          : widget.images.first["path"]),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -337,23 +382,35 @@ class _UpdatePropertyPageState extends State<UpdatePropertyPage> {
                       primary: Colors.indigo,
                       onSurface: Colors.grey,
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UpdatePropertyPage(
-                                    address: widget.address,
-                                    bedroom: widget.bedroom,
-                                    bathroom: widget.bathroom,
-                                    kitchen: widget.kitchen,
-                                    description: widget.description,
-                                    owner: widget.owner,
-                                    sittingRoom: widget.sittingRoom,
-                                    toilet: widget.toilet,
-                                    type: widget.type,
-                                    validFrom: widget.validFrom,
-                                    validTo: widget.validTo,
-                                  )));
+                    onPressed: () async {
+                      final int bedroom = int.parse(bedrooms.text.trim());
+                      final int bathroom = int.parse(bathrooms.text.trim());
+                      final int kitchen = int.parse(kitchens.text.trim());
+                      final int sittingRoom =
+                          int.parse(sittingRooms.text.trim());
+                      final int toilet = int.parse(toilets.text.trim());
+                      final String validTo = validto.text.trim();
+                      final String description =
+                          propertyDescription.text.trim();
+
+                      Response update = await updateProperty(
+                        bEdrooms: bedroom,
+                        tOilet: toilet,
+                        bAthrooms: bathroom,
+                        vAlidTo: validTo,
+                        sIttingroom: sittingRoom,
+                        kItchens: kitchen,
+                        dEscription: description,
+                      );
+                      if (update.statusCode == 200) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ListPropertyPage()));
+                      } else {
+                        print(e);
+                      }
                     }),
               ],
             ),

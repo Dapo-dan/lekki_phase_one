@@ -149,7 +149,7 @@ class _PropertyViewState extends State<PropertyView> {
                                             type: widget.type,
                                             validFrom: widget.validFrom,
                                             validTo: widget.validTo,
-                                            images: [],
+                                            images: widget.image,
                                           )));
                             }),
                         const SizedBox(
@@ -184,7 +184,7 @@ class _PropertyViewState extends State<PropertyView> {
                                             validFrom: widget.validFrom,
                                             validTo: widget.validTo,
                                             id: widget.id,
-                                            images: [],
+                                            images: widget.image,
                                           )));
                               print(widget.id);
                             }),

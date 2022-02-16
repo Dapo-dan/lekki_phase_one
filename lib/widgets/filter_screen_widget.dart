@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lekki_phase_one/screens/show_property_page.dart';
 import 'package:lekki_phase_one/screens/update_property_page.dart';
 
-class FilterScreen extends StatefulWidget {
+class FilterScreen extends StatelessWidget {
   const FilterScreen({
     Key? key,
     required this.address,
@@ -32,11 +32,6 @@ class FilterScreen extends StatefulWidget {
   final List images;
 
   @override
-  State<FilterScreen> createState() => _FilterScreenState();
-}
-
-class _FilterScreenState extends State<FilterScreen> {
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -44,18 +39,18 @@ class _FilterScreenState extends State<FilterScreen> {
           context,
           MaterialPageRoute(
               builder: (context) => ShowPropertyPage(
-                    address: widget.address,
-                    bedroom: widget.bedroom,
-                    bathroom: widget.bathroom,
-                    kitchen: widget.kitchen,
-                    description: widget.description,
-                    owner: widget.owner,
-                    sittingRoom: widget.sittingRoom,
-                    toilet: widget.toilet,
-                    type: widget.type,
-                    validFrom: widget.validFrom,
-                    validTo: widget.validTo,
-                    images: [],
+                    address: address,
+                    bedroom: bedroom,
+                    bathroom: bathroom,
+                    kitchen: kitchen,
+                    description: description,
+                    owner: owner,
+                    sittingRoom: sittingRoom,
+                    toilet: toilet,
+                    type: type,
+                    validFrom: validFrom,
+                    validTo: validTo,
+                    images: images,
                   )),
         );
       },
@@ -72,9 +67,9 @@ class _FilterScreenState extends State<FilterScreen> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: NetworkImage(widget.images.isEmpty
+                    image: NetworkImage(images.isEmpty
                         ? "https://www.stylemotivation.com/wp-content/uploads/2021/07/02C.jpg"
-                        : widget.images.first["path"]),
+                        : images.first["path"]),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -92,7 +87,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       height: 10,
                     ),
                     Text(
-                      'Property address: ${widget.address}',
+                      'Property address: $address',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
@@ -102,7 +97,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       height: 10,
                     ),
                     Text(
-                      'Property type: ${widget.type}',
+                      'Property type: $type',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
@@ -111,7 +106,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text('Property Owner: ${widget.owner}',
+                    Text('Property Owner: $owner',
                         style: const TextStyle(
                           fontSize: 15,
                           color: Colors.grey,
@@ -119,7 +114,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text('No of bedrooms: ${widget.bedroom}',
+                    Text('No of bedrooms: $bedroom',
                         style: const TextStyle(
                           fontSize: 15,
                           color: Colors.grey,
@@ -146,18 +141,18 @@ class _FilterScreenState extends State<FilterScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ShowPropertyPage(
-                                            address: widget.address,
-                                            bedroom: widget.bedroom,
-                                            bathroom: widget.bathroom,
-                                            kitchen: widget.kitchen,
-                                            description: widget.description,
-                                            owner: widget.owner,
-                                            sittingRoom: widget.sittingRoom,
-                                            toilet: widget.toilet,
-                                            type: widget.type,
-                                            validFrom: widget.validFrom,
-                                            validTo: widget.validTo,
-                                            images: [],
+                                            address: address,
+                                            bedroom: bedroom,
+                                            bathroom: bathroom,
+                                            kitchen: kitchen,
+                                            description: description,
+                                            owner: owner,
+                                            sittingRoom: sittingRoom,
+                                            toilet: toilet,
+                                            type: type,
+                                            validFrom: validFrom,
+                                            validTo: validTo,
+                                            images: images,
                                           )));
                             }),
                         const SizedBox(
@@ -180,19 +175,19 @@ class _FilterScreenState extends State<FilterScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => UpdatePropertyPage(
-                                            address: widget.address,
-                                            bedroom: widget.bedroom,
-                                            bathroom: widget.bathroom,
-                                            kitchen: widget.kitchen,
-                                            description: widget.description,
-                                            owner: widget.owner,
-                                            sittingRoom: widget.sittingRoom,
-                                            toilet: widget.toilet,
-                                            type: widget.type,
-                                            validFrom: widget.validFrom,
-                                            validTo: widget.validTo,
+                                            address: address,
+                                            bedroom: bedroom,
+                                            bathroom: bathroom,
+                                            kitchen: kitchen,
+                                            description: description,
+                                            owner: owner,
+                                            sittingRoom: sittingRoom,
+                                            toilet: toilet,
+                                            type: type,
+                                            validFrom: validFrom,
+                                            validTo: validTo,
                                             id: '',
-                                            images: [],
+                                            images: images,
                                           )));
                             }),
                       ],

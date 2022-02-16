@@ -1,62 +1,18 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:lekki_phase_one/controller/property_controller.dart';
 import 'package:lekki_phase_one/screens/list_property_page.dart';
 
-class AddPropertyPage extends StatefulWidget {
-  const AddPropertyPage({Key? key}) : super(key: key);
+class AddPropertyPage extends StatelessWidget {
+  AddPropertyPage({Key? key}) : super(key: key);
 
-  @override
-  State<AddPropertyPage> createState() => _AddPropertyPageState();
-}
-
-class _AddPropertyPageState extends State<AddPropertyPage> {
-  Dio dio = Dio();
-
-  Future<Response> postProperty(
-      {required String oWner,
-      required int bEdrooms,
-      required int tOilet,
-      required int bAthrooms,
-      required String vAlidFrom,
-      required String vAlidTo,
-      required String aDdress,
-      required int sIttingroom,
-      required int kItchens,
-      required String dEscription,
-      required String tYpe,
-      required List iMages}) async {
-    const String pathUrl =
-        'https://sfc-lekki-property.herokuapp.com/api/v1/lekki/property';
-
-    var data = {
-      "address": aDdress,
-      "type": tYpe,
-      "bedroom": bEdrooms,
-      "sittingRoom": sIttingroom,
-      "kitchen": kItchens,
-      "bathroom": bAthrooms,
-      "toilet": tOilet,
-      "propertyOwner": oWner,
-      "description": dEscription,
-      "validFrom": vAlidFrom,
-      "validTo": vAlidTo,
-      "images": iMages,
-    };
-
-    Response response = await dio.post(
-      pathUrl,
-      data: data,
-      options: Options(
-        contentType: "application/json",
-      ),
-    );
-
-    return response;
-  }
+  final PropertyController propertyController = PropertyController();
 
   TextEditingController propertyAddress = TextEditingController();
   TextEditingController propertyType = TextEditingController();
@@ -92,13 +48,6 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
       "filename": "sfc/lekki/p3dlgkz2guhrwouwukdp"
     }
   ];
-
-  @override
-  void initState() {
-    validfrom.text = ""; //set the initial value of text field
-    validto.text = "";
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -454,11 +403,8 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       print(
                           formattedDate); //formatted date output using intl package =>  2021-03-16
                       //you can implement different kind of Date Format here according to your requirement
-
-                      setState(() {
-                        validfrom.text =
-                            formattedDate; //set output date to TextField value.
-                      });
+                      propertyController.setState(
+                          param: validfrom.text, value: formattedDate);
                     } else {
                       print("Date is not selected");
                     }
@@ -514,11 +460,8 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       print(
                           formattedDate); //formatted date output using intl package =>  2021-03-16
                       //you can implement different kind of Date Format here according to your requirement
-
-                      setState(() {
-                        validto.text =
-                            formattedDate; //set output date to TextField value.
-                      });
+                      propertyController.setState(
+                          param: validto.text, value: formattedDate);
                     } else {
                       print("Date is not selected");
                     }
@@ -582,7 +525,7 @@ class _AddPropertyPageState extends State<AddPropertyPage> {
                       final String description =
                           propertyDescription.text.trim();
 
-                      Response property = await postProperty(
+                      Response property = await propertyController.postProperty(
                           oWner: oWner,
                           bEdrooms: bedroom,
                           tOilet: toilet,

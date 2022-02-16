@@ -55,7 +55,7 @@ class NavDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 20)),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => const AddPropertyPage()));
+                  builder: (BuildContext context) => AddPropertyPage()));
             },
           ),
         ],

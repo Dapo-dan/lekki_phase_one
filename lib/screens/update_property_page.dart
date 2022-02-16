@@ -1,12 +1,13 @@
 import 'dart:math';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:lekki_phase_one/controller/property_controller.dart';
 import 'package:lekki_phase_one/screens/list_property_page.dart';
 
 // ignore: must_be_immutable
-class UpdatePropertyPage extends StatefulWidget {
+class UpdatePropertyPage extends StatelessWidget {
+  final PropertyController propertyController = PropertyController();
   UpdatePropertyPage(
       {Key? key,
       required this.address,
@@ -37,47 +38,6 @@ class UpdatePropertyPage extends StatefulWidget {
   List images;
   String id;
 
-  @override
-  State<UpdatePropertyPage> createState() => _UpdatePropertyPageState();
-}
-
-class _UpdatePropertyPageState extends State<UpdatePropertyPage> {
-  Dio dio = Dio();
-
-  Future<Response> updateProperty({
-    required int bEdrooms,
-    required int tOilet,
-    required int bAthrooms,
-    required String vAlidTo,
-    required int sIttingroom,
-    required int kItchens,
-    required String dEscription,
-  }) async {
-    String pathUrl =
-        'https://sfc-lekki-property.herokuapp.com/api/v1/lekki/property/${widget.id}';
-
-    var data = {
-      "bedroom": bEdrooms,
-      "sittingRoom": sIttingroom,
-      "kitchen": kItchens,
-      "bathroom": bAthrooms,
-      "toilet": tOilet,
-      "description": dEscription,
-      "validTo": vAlidTo,
-    };
-    print(pathUrl);
-
-    Response response = await dio.patch(
-      pathUrl,
-      data: data,
-      options: Options(
-        contentType: "application/json",
-      ),
-    );
-
-    return response;
-  }
-
   TextEditingController bedrooms = TextEditingController();
   TextEditingController bathrooms = TextEditingController();
   TextEditingController kitchens = TextEditingController();
@@ -107,9 +67,9 @@ class _UpdatePropertyPageState extends State<UpdatePropertyPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
-                      image: NetworkImage(widget.images.isEmpty
+                      image: NetworkImage(images.isEmpty
                           ? "https://www.stylemotivation.com/wp-content/uploads/2021/07/02C.jpg"
-                          : widget.images.first["path"]),
+                          : images.first["path"]),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -129,7 +89,7 @@ class _UpdatePropertyPageState extends State<UpdatePropertyPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Property address: ${widget.address}',
+                        'Property address: $address',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
@@ -137,7 +97,7 @@ class _UpdatePropertyPageState extends State<UpdatePropertyPage> {
                         height: 10,
                       ),
                       Text(
-                        'Property type: ${widget.type}',
+                        'Property type: $type',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
@@ -275,7 +235,7 @@ class _UpdatePropertyPageState extends State<UpdatePropertyPage> {
                         height: 10,
                       ),
                       Text(
-                        'Property owner: ${widget.owner}',
+                        'Property owner: $owner',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
@@ -308,7 +268,7 @@ class _UpdatePropertyPageState extends State<UpdatePropertyPage> {
                         height: 10,
                       ),
                       Text(
-                        'Valid from: ${widget.validFrom}',
+                        'Valid from: $validFrom',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
@@ -333,11 +293,8 @@ class _UpdatePropertyPageState extends State<UpdatePropertyPage> {
                             print(
                                 formattedDate); //formatted date output using intl package =>  2021-03-16
                             //you can implement different kind of Date Format here according to your requirement
-
-                            setState(() {
-                              validto.text =
-                                  formattedDate; //set output date to TextField value.
-                            });
+                            propertyController.setState(
+                                param: validto.text, value: formattedDate);
                           } else {
                             print("Date is not selected");
                           }
@@ -393,15 +350,15 @@ class _UpdatePropertyPageState extends State<UpdatePropertyPage> {
                       final String description =
                           propertyDescription.text.trim();
 
-                      Response update = await updateProperty(
-                        bEdrooms: bedroom,
-                        tOilet: toilet,
-                        bAthrooms: bathroom,
-                        vAlidTo: validTo,
-                        sIttingroom: sittingRoom,
-                        kItchens: kitchen,
-                        dEscription: description,
-                      );
+                      Response update = await propertyController.updateProperty(
+                          bEdrooms: bedroom,
+                          tOilet: toilet,
+                          bAthrooms: bathroom,
+                          vAlidTo: validTo,
+                          sIttingroom: sittingRoom,
+                          kItchens: kitchen,
+                          dEscription: description,
+                          id: id);
                       if (update.statusCode == 200) {
                         Navigator.push(
                             context,

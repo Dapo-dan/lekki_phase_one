@@ -1,61 +1,18 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:lekki_phase_one/models/property_model.dart';
-import 'package:lekki_phase_one/constants.dart';
-import 'package:lekki_phase_one/widgets/filterScreenWidget.dart';
+import 'package:lekki_phase_one/controller/property_controller.dart';
+import 'package:lekki_phase_one/widgets/filter_screen_widget.dart';
 
-class Filter extends StatefulWidget {
-  const Filter({Key? key}) : super(key: key);
-
-  @override
-  State<Filter> createState() => _FilterState();
-}
-
-class _FilterState extends State<Filter> {
-  double _sitting = 0;
-  double _bathroom = 0;
-  double _bedroom = 0;
-  double _kitchen = 0;
-  double _toilet = 0;
-  @override
-  void initState() {
-    constants.propertyList.clear();
-    // ignore: todo
-    // TODO: implement initState
-    super.initState();
-  }
+// ignore: must_be_immutable
+class Filter extends StatelessWidget {
+  final PropertyController propertyController = PropertyController();
 
   TextEditingController owner = TextEditingController();
-  Constants constants = Constants();
-  Future filterFunction(
-      {double? sitting,
-      double? bathroom,
-      double? bedroom,
-      double? kitchen,
-      double? toilet,
-      String? owner}) async {
-    var filterParam = {
-      'bedroom': bedroom,
-      'kitchen': kitchen,
-      'toilet': toilet,
-      'propertyOwner': owner,
-      'sittingRoom': sitting,
-      'bathroom': bathroom,
-    };
-    var response = await Dio().get(
-        'https://sfc-lekki-property.herokuapp.com/api/v1/lekki/property',
-        queryParameters: filterParam,
-        options: Options(contentType: 'application/json'));
 
-    for (var item in response.data['data']) {
-      constants.filterList.add(PropertyModel.fromJson(item));
-    }
-    return constants.filterList;
-  }
+  Filter({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return constants.fillern
+    return propertyController.fillern
         ? Column(
             children: [
               Expanded(
@@ -79,12 +36,13 @@ class _FilterState extends State<Filter> {
                             min: 0,
                             max: 10,
                             divisions: 10,
-                            label: _sitting.round().toString(),
-                            value: _sitting,
+                            label:
+                                propertyController.sitting.round().toString(),
+                            value: propertyController.sitting,
                             onChanged: (value) {
-                              setState(() {
-                                _sitting = value;
-                              });
+                              propertyController.setState(
+                                  param: propertyController.sitting,
+                                  value: value);
                             },
                           )),
                         ],
@@ -108,12 +66,13 @@ class _FilterState extends State<Filter> {
                             min: 0,
                             max: 10,
                             divisions: 10,
-                            label: _kitchen.round().toString(),
-                            value: _kitchen,
+                            label:
+                                propertyController.kitchen.round().toString(),
+                            value: propertyController.kitchen,
                             onChanged: (value) {
-                              setState(() {
-                                _kitchen = value;
-                              });
+                              propertyController.setState(
+                                  param: propertyController.kitchen,
+                                  value: value);
                             },
                           )),
                         ],
@@ -136,13 +95,14 @@ class _FilterState extends State<Filter> {
                               child: Slider(
                             min: 0,
                             max: 10,
-                            label: _bedroom.round().toString(),
+                            label:
+                                propertyController.bedroom.round().toString(),
                             divisions: 10,
-                            value: _bedroom,
+                            value: propertyController.bedroom,
                             onChanged: (value) {
-                              setState(() {
-                                _bedroom = value;
-                              });
+                              propertyController.setState(
+                                  param: propertyController.bedroom,
+                                  value: value);
                             },
                           )),
                         ],
@@ -165,13 +125,14 @@ class _FilterState extends State<Filter> {
                               child: Slider(
                             min: 0,
                             max: 10,
-                            label: _bathroom.round().toString(),
-                            value: _bathroom,
+                            label:
+                                propertyController.bathroom.round().toString(),
+                            value: propertyController.bathroom,
                             divisions: 10,
                             onChanged: (value) {
-                              setState(() {
-                                _bathroom = value;
-                              });
+                              propertyController.setState(
+                                  param: propertyController.bathroom,
+                                  value: value);
                             },
                           )),
                         ],
@@ -194,13 +155,13 @@ class _FilterState extends State<Filter> {
                               child: Slider(
                             min: 0,
                             max: 10,
-                            label: _toilet.round().toString(),
-                            value: _toilet,
+                            label: propertyController.toilet.round().toString(),
+                            value: propertyController.toilet,
                             divisions: 10,
                             onChanged: (value) {
-                              setState(() {
-                                _toilet = value;
-                              });
+                              propertyController.setState(
+                                  param: propertyController.toilet,
+                                  value: value);
                             },
                           )),
                         ],
@@ -274,17 +235,17 @@ class _FilterState extends State<Filter> {
                           onSurface: Colors.grey,
                         ),
                         onPressed: () async {
-                          var f = await filterFunction(
-                              sitting: _sitting,
-                              bathroom: _bathroom,
-                              bedroom: _bedroom,
-                              kitchen: _kitchen,
+                          var f = await propertyController.filterFunction(
+                              sitting: propertyController.sitting,
+                              bathroom: propertyController.bathroom,
+                              bedroom: propertyController.bedroom,
+                              kitchen: propertyController.kitchen,
                               owner: owner.text,
-                              toilet: _toilet);
+                              toilet: propertyController.toilet);
                           if (f.length != 0) {
-                            setState(() {
-                              constants.fillern = false;
-                            });
+                            propertyController.setState(
+                                param: propertyController.fillern,
+                                value: false);
                           } else {
                             Navigator.of(context).pop();
                           }
@@ -297,23 +258,27 @@ class _FilterState extends State<Filter> {
         : Expanded(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: constants.filterList.length,
+              itemCount: propertyController.filterList.length,
               //itemExtent: 10,
               itemBuilder: (BuildContext context, int index) {
                 return FilterScreen(
-                  address: constants.filterList[index].address,
-                  bedroom: constants.filterList[index].bedroom.toString(),
-                  owner: constants.filterList[index].propertyOwner,
-                  type: constants.filterList[index].type,
-                  bathroom: constants.filterList[index].bathroom.toString(),
-                  description: constants.filterList[index].description,
-                  kitchen: constants.filterList[index].kitchen.toString(),
-                  sittingRoom:
-                      constants.filterList[index].sittingRoom.toString(),
-                  toilet: constants.filterList[index].toilet.toString(),
-                  validFrom: constants.filterList[index].validFrom,
-                  validTo: constants.filterList[index].validTo,
-                  images: constants.filterList[index].images,
+                  address: propertyController.filterList[index].address,
+                  bedroom:
+                      propertyController.filterList[index].bedroom.toString(),
+                  owner: propertyController.filterList[index].propertyOwner,
+                  type: propertyController.filterList[index].type,
+                  bathroom:
+                      propertyController.filterList[index].bathroom.toString(),
+                  description: propertyController.filterList[index].description,
+                  kitchen:
+                      propertyController.filterList[index].kitchen.toString(),
+                  sittingRoom: propertyController.filterList[index].sittingRoom
+                      .toString(),
+                  toilet:
+                      propertyController.filterList[index].toilet.toString(),
+                  validFrom: propertyController.filterList[index].validFrom,
+                  validTo: propertyController.filterList[index].validTo,
+                  images: propertyController.filterList[index].images,
                 );
               },
             ),

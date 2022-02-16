@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lekki_phase_one/screens/show_property_page.dart';
 import 'package:lekki_phase_one/screens/update_property_page.dart';
 
-class PropertyView extends StatefulWidget {
+class PropertyView extends StatelessWidget {
   const PropertyView({
     Key? key,
     required this.address,
@@ -34,11 +34,6 @@ class PropertyView extends StatefulWidget {
   final List image;
 
   @override
-  State<PropertyView> createState() => _PropertyViewState();
-}
-
-class _PropertyViewState extends State<PropertyView> {
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -46,18 +41,18 @@ class _PropertyViewState extends State<PropertyView> {
           context,
           MaterialPageRoute(
               builder: (context) => ShowPropertyPage(
-                    address: widget.address,
-                    bedroom: widget.bedroom,
-                    bathroom: widget.bathroom,
-                    kitchen: widget.kitchen,
-                    description: widget.description,
-                    owner: widget.owner,
-                    sittingRoom: widget.sittingRoom,
-                    toilet: widget.toilet,
-                    type: widget.type,
-                    validFrom: widget.validFrom,
-                    validTo: widget.validTo,
-                    images: widget.image,
+                    address: address,
+                    bedroom: bedroom,
+                    bathroom: bathroom,
+                    kitchen: kitchen,
+                    description: description,
+                    owner: owner,
+                    sittingRoom: sittingRoom,
+                    toilet: toilet,
+                    type: type,
+                    validFrom: validFrom,
+                    validTo: validTo,
+                    images: image,
                   )),
         );
       },
@@ -74,9 +69,9 @@ class _PropertyViewState extends State<PropertyView> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: NetworkImage(widget.image.isEmpty
+                    image: NetworkImage(image.isEmpty
                         ? "https://www.stylemotivation.com/wp-content/uploads/2021/07/02C.jpg"
-                        : widget.image.first["path"]),
+                        : image.first["path"]),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -93,20 +88,20 @@ class _PropertyViewState extends State<PropertyView> {
                   children: [
                     const Spacer(),
                     Text(
-                      'Property address: ${widget.address}',
+                      'Property address: $address',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Text(
-                      'Property type: ${widget.type}',
+                      'Property type: $type',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    Text('Property Owner: ${widget.owner}',
+                    Text('Property Owner: $owner',
                         style: const TextStyle(
                           fontSize: 15,
                           color: Colors.grey,
@@ -114,7 +109,7 @@ class _PropertyViewState extends State<PropertyView> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text('No of bedrooms: ${widget.bedroom}',
+                    Text('No of bedrooms: $bedroom',
                         style: const TextStyle(
                           fontSize: 15,
                           color: Colors.grey,
@@ -138,18 +133,18 @@ class _PropertyViewState extends State<PropertyView> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ShowPropertyPage(
-                                            address: widget.address,
-                                            bedroom: widget.bedroom,
-                                            bathroom: widget.bathroom,
-                                            kitchen: widget.kitchen,
-                                            description: widget.description,
-                                            owner: widget.owner,
-                                            sittingRoom: widget.sittingRoom,
-                                            toilet: widget.toilet,
-                                            type: widget.type,
-                                            validFrom: widget.validFrom,
-                                            validTo: widget.validTo,
-                                            images: widget.image,
+                                            address: address,
+                                            bedroom: bedroom,
+                                            bathroom: bathroom,
+                                            kitchen: kitchen,
+                                            description: description,
+                                            owner: owner,
+                                            sittingRoom: sittingRoom,
+                                            toilet: toilet,
+                                            type: type,
+                                            validFrom: validFrom,
+                                            validTo: validTo,
+                                            images: image,
                                           )));
                             }),
                         const SizedBox(
@@ -172,21 +167,21 @@ class _PropertyViewState extends State<PropertyView> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => UpdatePropertyPage(
-                                            address: widget.address,
-                                            bedroom: widget.bedroom,
-                                            bathroom: widget.bathroom,
-                                            kitchen: widget.kitchen,
-                                            description: widget.description,
-                                            owner: widget.owner,
-                                            sittingRoom: widget.sittingRoom,
-                                            toilet: widget.toilet,
-                                            type: widget.type,
-                                            validFrom: widget.validFrom,
-                                            validTo: widget.validTo,
-                                            id: widget.id,
-                                            images: widget.image,
+                                            address: address,
+                                            bedroom: bedroom,
+                                            bathroom: bathroom,
+                                            kitchen: kitchen,
+                                            description: description,
+                                            owner: owner,
+                                            sittingRoom: sittingRoom,
+                                            toilet: toilet,
+                                            type: type,
+                                            validFrom: validFrom,
+                                            validTo: validTo,
+                                            id: id,
+                                            images: image,
                                           )));
-                              print(widget.id);
+                              print(id);
                             }),
                       ],
                     )

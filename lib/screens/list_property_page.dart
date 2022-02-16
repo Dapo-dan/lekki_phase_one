@@ -1,12 +1,8 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'package:lekki_phase_one/constants.dart';
-import 'package:lekki_phase_one/models/property_model.dart';
-import 'package:lekki_phase_one/navDrawer.dart';
+import 'package:lekki_phase_one/controller/property_controller.dart';
+import 'package:lekki_phase_one/nav_drawer.dart';
 import 'package:lekki_phase_one/widgets/filter.dart';
-import 'package:lekki_phase_one/widgets/propertyWidget.dart';
+import 'package:lekki_phase_one/widgets/property_widget.dart';
 
 class ListPropertyPage extends StatefulWidget {
   const ListPropertyPage({Key? key}) : super(key: key);
@@ -16,22 +12,12 @@ class ListPropertyPage extends StatefulWidget {
 }
 
 class _ListPropertyPageState extends State<ListPropertyPage> {
-  Constants constants = Constants();
-  Future getProprty() async {
-    var response = await Dio().get(
-        'https://sfc-lekki-property.herokuapp.com/api/v1/lekki/property',
-        options: Options(contentType: 'application/json'));
-    for (var item in response.data['data']) {
-      constants.propertyList.add(PropertyModel.fromJson(item));
-    }
-    return constants.propertyList;
-  }
-
+  final PropertyController propertyController = PropertyController();
   @override
   void initState() {
-    getProprty().then((value) {
+    propertyController.getProprty().then((value) {
       setState(() {
-        constants.propertyList = value;
+        propertyController.propertyList = value;
       });
     });
     // ignore: todo
@@ -72,7 +58,7 @@ class _ListPropertyPageState extends State<ListPropertyPage> {
                 await showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return const Filter();
+                    return Filter();
                   },
                 );
               },
@@ -83,30 +69,36 @@ class _ListPropertyPageState extends State<ListPropertyPage> {
             Expanded(
                 child: ListView.builder(
               shrinkWrap: true,
-              itemCount: constants.propertyList.length,
+              itemCount: propertyController.propertyList.length,
               itemBuilder: (BuildContext context, int index) {
                 return PropertyView(
-                  address: constants.propertyList[index].address,
-                  bedroom: constants.propertyList[index].bedroom.toString(),
-                  owner: constants.propertyList[index].propertyOwner,
-                  type: constants.propertyList[index].type,
-                  bathroom: constants.propertyList[index].bathroom.toString(),
-                  description: constants.propertyList[index].description,
-                  kitchen: constants.propertyList[index].kitchen.toString(),
-                  sittingRoom:
-                      constants.propertyList[index].sittingRoom.toString(),
-                  toilet: constants.propertyList[index].toilet.toString(),
-                  validFrom: constants.propertyList[index].validFrom,
-                  validTo: constants.propertyList[index].validTo,
-                  id: constants.propertyList[index].id,
-                  image: constants.propertyList[index].images,
+                  address: propertyController.propertyList[index].address,
+                  bedroom:
+                      propertyController.propertyList[index].bedroom.toString(),
+                  owner: propertyController.propertyList[index].propertyOwner,
+                  type: propertyController.propertyList[index].type,
+                  bathroom: propertyController.propertyList[index].bathroom
+                      .toString(),
+                  description:
+                      propertyController.propertyList[index].description,
+                  kitchen:
+                      propertyController.propertyList[index].kitchen.toString(),
+                  sittingRoom: propertyController
+                      .propertyList[index].sittingRoom
+                      .toString(),
+                  toilet:
+                      propertyController.propertyList[index].toilet.toString(),
+                  validFrom: propertyController.propertyList[index].validFrom,
+                  validTo: propertyController.propertyList[index].validTo,
+                  id: propertyController.propertyList[index].id,
+                  image: propertyController.propertyList[index].images,
                 );
               },
             ))
           ],
         ),
       ),
-      drawer: NavDrawer(),
+      drawer: const NavDrawer(),
     );
   }
 }
